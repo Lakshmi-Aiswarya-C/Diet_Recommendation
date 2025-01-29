@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel,conlist
 from typing import List,Optional
 import pandas as pd
+import os
 from model import recommend,output_recommended_recipes
 
 
@@ -54,4 +55,12 @@ def update_item(prediction_input:PredictionIn):
         return {"output":None}
     else:
         return {"output":output}
+
+
+
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.getenv("PORT", 10000))  # Get PORT from Render, default to 10000
+    uvicorn.run(app, host="0.0.0.0", port=port)
+
 
